@@ -37,7 +37,37 @@ class KonaneGameState {
 		return board[atX][atY]
 	}
 
-	func isValid
+	func isValid(move: KonaneMove) -> Bool {
+		return false
+	}
+
+	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
+		return false
+	}
+
+	func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+		return false
+	}
+
+	perform(move: KonaneMove) {
+		//move
+	}
+
+	perform(blackRemove: (x: Int, y: Int)) {
+		//remove
+	}
+
+	perform(whiteRemove: (x: Int, y: Int)) {
+		//remove
+	}
+
+	didBlackWin() -> Bool {
+		//check if black won
+	}
+
+	didWhiteWin() -> Bool {
+		//check if black won
+	}
 }
 
 enum KonaneColor {
@@ -62,5 +92,24 @@ class KonaneMoveInputSource {
 	init(isBlack: Bool) {
 		self.isBlack = isBlack
 	}
-	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int)
+	
+	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		return ((0, 0))
+	}
+
+	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		return ((0, 0))
+	}
+
+	func nextMove(gameState: KonaneGameState) -> KonaneMove {
+		return KonaneMove(fromX = 0, fromY = 0, toX = 0, toY = 0)
+	}
+}
+
+class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
+	
+}
+
+class Davanji_KonaneMoveInputSourceAI: KonaneMoveInputSource {
+	
 }
