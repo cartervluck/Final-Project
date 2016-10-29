@@ -1,33 +1,77 @@
 class KonaneGame {
-	blackIsHuman: Bool
-	whiteIsHuman: Bool
-	init(blackHuman: Bool, whiteHuman: Bool) {
-		blackIsHuman = blackHuman
-		whiteIsHuman = whiteHuman
+	let blackIsHuman: Bool
+	let whiteIsHuman: Bool
+	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
+		self.blackIsHuman = blackIsHuman
+		self.whiteIsHuman = whiteIsHuman
 	}
-	private gameState: KonaneGameState
+
+	private var gameState: KonaneGameState
+
+	private var blackInputSource: KonaneMoveInputSource = KonaneMoveInputSourceHuman(isBlack: true)
+	private var whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSourceHuman(isBlack: false)
+
+	func play() -> Bool {
+
+		if !blackIsHuman {
+			blackInputSource = Davanji_KonaneMoveInputSourceAI(isBlack: true)
+		}
+
+		if !whiteIsHuman {
+			whiteInputSource = Davanji_KonaneMoveInputSourceAI(isBlack: false)
+		}
+
+		gameState.boardSetUp()
+
+		while true {
+			//Do the things
+
+			if gameState.didBlackWin() {
+				return true
+			}
+
+			if gameState.didWhiteWin() {
+				return false
+			}
+		}
+	}
+
+	private func displayBoard() {
+		var compStr = ""
+		for i in 0 ..< gameState.length {
+			for n in 0 ..< gameState.width {
+				if gameState.board[i][n] == KonaneColor.black {
+					compStr += "[X] "
+				} else if gameState.board[i][n] == KonaneColor.white {
+					compStr += "[O] "
+				} else {
+					compStr += "[-] "
+				}
+			}
+			compStr += "\n"
+		}
+	}
 }
 
 class KonaneGameState {
 	let width = 16
 	let length = 16
-	init(w: Int, l: Int) {
-		width = w
-		length = l
+	init(){
+
 	}
 
-	private var board = [[KonaneColor]](repeating: [], count: length)
-	for i in 0 ..< length {
-		for n in 0 ..< width {
-			if n + i % 2 == 0 {
-				board[i][n].append(KonaneColor.black)
-			} else {
-				board[i][n].append(KonaneColor.white)
+	var board = [[KonaneColor]](repeating: [], count: 16) //This created errors, it will make problems if you change width and length
+
+	func boardSetUp() {
+		for i in 0 ..< length {
+			for n in 0 ..< width/2 {
+				board[i].append(KonaneColor.black)
+				board[i].append(KonaneColor.white)
 			}
 		}
 	}
 
-	private isBlackTurn = true
+	private var isBlackTurn: Bool = true
 
 	func getIsBlackTurn() -> Bool {
 		return isBlackTurn
@@ -49,24 +93,26 @@ class KonaneGameState {
 		return false
 	}
 
-	perform(move: KonaneMove) {
+	func perform(move: KonaneMove) {
 		//move
 	}
 
-	perform(blackRemove: (x: Int, y: Int)) {
+	func perform(blackRemove: (x: Int, y: Int)) {
 		//remove
 	}
 
-	perform(whiteRemove: (x: Int, y: Int)) {
+	func perform(whiteRemove: (x: Int, y: Int)) {
 		//remove
 	}
 
-	didBlackWin() -> Bool {
+	func didBlackWin() -> Bool {
 		//check if black won
+		return true
 	}
 
-	didWhiteWin() -> Bool {
+	func didWhiteWin() -> Bool {
 		//check if black won
+		return true
 	}
 }
 
@@ -87,29 +133,14 @@ class KonaneMove {
 	}
 }
 
-class KonaneMoveInputSource {
-	isBlack: Bool
-	init(isBlack: Bool) {
-		self.isBlack = isBlack
-	}
-	
-	func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-		return ((0, 0))
-	}
+/*
 
-	func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
-		return ((0, 0))
-	}
+[
+[KC KC KC KC KC KC KC KC KC ...]
+[KC KC KC KC KC KC KC KC KC ...]
+...
+]
 
-	func nextMove(gameState: KonaneGameState) -> KonaneMove {
-		return KonaneMove(fromX = 0, fromY = 0, toX = 0, toY = 0)
-	}
-}
+[[],[],[],[]...]
 
-class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
-	
-}
-
-class Davanji_KonaneMoveInputSourceAI: KonaneMoveInputSource {
-	
-}
+*/
