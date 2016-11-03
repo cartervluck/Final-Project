@@ -2,8 +2,17 @@ class KonaneGame {
 	let blackIsHuman: Bool
 	let whiteIsHuman: Bool
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
-		self.blackIsHuman = blackIsHuman
-		self.whiteIsHuman = whiteIsHuman
+		if blackIsHuman {
+			self.blackIsHuman = true
+		} else {
+			self.blackIsHuman = false
+		}
+		
+		if whiteIsHuman {
+			self.whiteIsHuman = true
+		} else {
+			self.whiteIsHuman = false
+		}
 	}
 
 	private var gameState: KonaneGameState
@@ -32,21 +41,19 @@ class KonaneGame {
 
 			displayBoard()
 
-			print("Enter the X value of the piece you want to move:")
+			//check what type it is, ask for move
 
-			var fromX = Int(readLine()!)!
+			var move = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
 
-			print("Enter the Y value of the piece you want to move:")
+			if gameState.getIsBlackTurn() {
+				move = blackInputSource.nextMove(gameState: gameState)
+			} else {
+				move = whiteInputSource.nextMove(gameState: gameState)
+			}
 
-			var fromY = Int(readLine()!)!
-
-			print("Enter the X value of the space you want to move to:")
-
-			var toX = Int(readLine()!)!
-
-			print("Enter the Y value of the space you want to move to:")
-
-			var toY = Int(readLine()!)!
+			if gameState.isValid(move: move) {
+				gameState.perform(move: move)
+			}
 
 			if gameState.didBlackWin() {
 				return true
@@ -72,69 +79,6 @@ class KonaneGame {
 			}
 			compStr += "\n"
 		}
-	}
-}
-
-class KonaneGameState {
-	let width = 16
-	let length = 16
-	init(){
-
-	}
-
-	var board = [[KonaneColor]](repeating: [], count: 16) //This created errors, it will make problems if you change width and length
-
-	func boardSetUp() {
-		for i in 0 ..< length {
-			for n in 0 ..< width/2 {
-				board[i].append(KonaneColor.black)
-				board[i].append(KonaneColor.white)
-			}
-		}
-	}
-
-	private var isBlackTurn: Bool = true
-
-	func getIsBlackTurn() -> Bool {
-		return isBlackTurn
-	}
-
-	func color(atX: Int, atY: Int) -> KonaneColor {
-		return board[atX][atY]
-	}
-
-	func isValid(move: KonaneMove) -> Bool {
-		return false
-	}
-
-	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-		return false
-	}
-
-	func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
-		return false
-	}
-
-	func perform(move: KonaneMove) {
-		//move
-	}
-
-	func perform(blackRemove: (x: Int, y: Int)) {
-		//remove
-	}
-
-	func perform(whiteRemove: (x: Int, y: Int)) {
-		//remove
-	}
-
-	func didBlackWin() -> Bool {
-		//check if black won
-		return true
-	}
-
-	func didWhiteWin() -> Bool {
-		//check if black won
-		return true
 	}
 }
 
