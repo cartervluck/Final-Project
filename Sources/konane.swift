@@ -1,35 +1,38 @@
 class KonaneGame {
-	let blackIsHuman: Bool
-	let whiteIsHuman: Bool
+	private var blackInputSource: KonaneMoveInputSource
+	private var whiteInputSource: KonaneMoveInputSource
+	private var gameState: KonaneGameState = KonaneGameState()
+
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
-		self.blackIsHuman = blackIsHuman
-		self.whiteIsHuman = whiteIsHuman
-	}
-
-	private var gameState: KonaneGameState
-
-	private var blackInputSource: KonaneMoveInputSource = KonaneMoveInputSourceHuman(isBlack: true)
-	private var whiteInputSource: KonaneMoveInputSource = KonaneMoveInputSourceHuman(isBlack: false)
-
-	func play() -> Bool {
 
 		if !blackIsHuman {
 			blackInputSource = Davanji_KonaneMoveInputSourceAI(isBlack: true)
+		} else {
+			blackInputSource = KonaneMoveInputSourceHuman(isBlack: true)
 		}
 
 		if !whiteIsHuman {
 			whiteInputSource = Davanji_KonaneMoveInputSourceAI(isBlack: false)
+		} else {
+			whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
 		}
 
+	}
+
+
+
+	func play() -> Bool {
+
+		
 		gameState.boardSetUp()
 
-		let firstRemove = blackInputSource.removeFirstPiece(gameState)
+		/* let firstRemove = blackInputSource.removeFirstPiece(gameState)
 
 		gameState.board[firstRemove.y][firstRemove.x]
 
 		let secondRemove = whiteInputSource.removeSecondPiece(gameState)
 
-		gameState.board[secondRemove.y][secondRemove.x]
+		gameState.board[secondRemove.y][secondRemove.x] */
 
 		while true {
 			if gameState.getIsBlackTurn() {
