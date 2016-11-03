@@ -164,6 +164,30 @@ class KonaneGameState {
 	}
 
 	func isValid(whiteRemove: (x: Int, y: Int)) -> Bool {
+		if whiteRemove.x < 0 {
+			return false
+		}
+
+		if whiteRemove.x > length - 1 {
+			return false
+		}
+
+		if whiteRemove.y < 0 {
+			return false
+		}
+
+		if whiteRemove.y > width - 1 {
+			return false
+		}
+
+		if board[whiteRemove.x][whiteRemove.y] != KonaneColor.white {
+			return false
+		}
+
+		if board[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty || board[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || board[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || board[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
+			return true
+		}
+
 		return false
 	}
 
