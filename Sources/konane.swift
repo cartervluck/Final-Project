@@ -2,17 +2,8 @@ class KonaneGame {
 	let blackIsHuman: Bool
 	let whiteIsHuman: Bool
 	init(blackIsHuman: Bool, whiteIsHuman: Bool) {
-		if blackIsHuman {
-			self.blackIsHuman = true
-		} else {
-			self.blackIsHuman = false
-		}
-		
-		if whiteIsHuman {
-			self.whiteIsHuman = true
-		} else {
-			self.whiteIsHuman = false
-		}
+		self.blackIsHuman = blackIsHuman
+		self.whiteIsHuman = whiteIsHuman
 	}
 
 	private var gameState: KonaneGameState
@@ -31,6 +22,14 @@ class KonaneGame {
 		}
 
 		gameState.boardSetUp()
+
+		let firstRemove = blackInputSource.removeFirstPiece(gameState)
+
+		gameState.board[firstRemove.y][firstRemove.x]
+
+		let secondRemove = whiteInputSource.removeSecondPiece(gameState)
+
+		gameState.board[secondRemove.y][secondRemove.x]
 
 		while true {
 			if gameState.getIsBlackTurn() {
@@ -79,6 +78,7 @@ class KonaneGame {
 			}
 			compStr += "\n"
 		}
+		print(compStr)
 	}
 }
 

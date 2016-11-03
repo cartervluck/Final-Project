@@ -235,11 +235,11 @@ class KonaneGameState {
 	}
 
 	func perform(blackRemove: (x: Int, y: Int)) {
-		board[blackRemove.y]
+		board[blackRemove.y][blackRemove.x] = KonaneColor.empty
 	}
 
 	func perform(whiteRemove: (x: Int, y: Int)) {
-		//remove
+		board[whiteRemove.y][whiteRemove.x] = KonaneColor.empty
 	}
 
 	func didBlackWin() -> Bool {
