@@ -16,21 +16,21 @@ class KonaneGame {
 		} else {
 			whiteInputSource = KonaneMoveInputSourceHuman(isBlack: false)
 		}
-
 	}
 
 
 
 	func play() -> Bool {
 
-		
 		gameState.boardSetUp()
 
-		/* let firstRemove = blackInputSource.removeFirstPiece(gameState)
+		displayBoard()
+
+		/* let firstRemove = blackInputSource.removeFirstPiece(gameState: gameState)
 
 		gameState.board[firstRemove.y][firstRemove.x]
 
-		let secondRemove = whiteInputSource.removeSecondPiece(gameState)
+		let secondRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
 
 		gameState.board[secondRemove.y][secondRemove.x] */
 

@@ -9,9 +9,14 @@ class KonaneGameState {
 
 	func boardSetUp() {
 		for i in 0 ..< length {
-			for n in 0 ..< width/2 {
-				board[i].append(KonaneColor.black)
-				board[i].append(KonaneColor.white)
+			for n in 0 ..< width {
+				if i + n % 2 == 0 {
+					board[i].append(KonaneColor.white)
+					print("W")
+				} else {
+					board[i].append(KonaneColor.black)
+					print("B")
+				}
 			}
 		}
 	}
