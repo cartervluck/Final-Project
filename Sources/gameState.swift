@@ -23,7 +23,7 @@ class KonaneGameState {
 	}
 
 	func color(atX: Int, atY: Int) -> KonaneColor {
-		return board[atX][atY]
+		return board[atY][atX]
 	}
 
 	func isValid(move: KonaneMove) -> Bool {
@@ -43,7 +43,7 @@ class KonaneGameState {
 			return false
 		}
 
-		if board[move.toX][move.toY] != KonaneColor.empty {
+		if board[move.toY][move.toX] != KonaneColor.empty {
 			//move to square not empty
 			return false
 		}
@@ -67,11 +67,11 @@ class KonaneGameState {
 			while x != move.toX {
 
 				if (x - move.fromX) % 2 == 0 {
-					if board[x][move.fromY] != KonaneColor.empty {
+					if board[move.fromY][x] != KonaneColor.empty {
 						return false
 					}
 				} else {
-					if board[x][move.fromY] == KonaneColor.empty {
+					if board[move.fromY][x] == KonaneColor.empty {
 						return false
 					}
 				}
@@ -85,11 +85,11 @@ class KonaneGameState {
 			while x != move.toX {
 
 				if (x - move.fromX) % 2 == 0 {
-					if board[x][move.fromY] != KonaneColor.empty {
+					if board[move.fromY][x] != KonaneColor.empty {
 						return false
 					}
 				} else {
-					if board[x][move.fromY] == KonaneColor.empty {
+					if board[move.fromY][x] == KonaneColor.empty {
 						return false
 					}
 				}
@@ -103,11 +103,11 @@ class KonaneGameState {
 			while y != move.toY {
 
 				if (y - move.fromY) % 2 == 0 {
-					if board[move.fromX][y] != KonaneColor.empty {
+					if board[y][move.fromX] != KonaneColor.empty {
 						return false
 					}
 				} else {
-					if board[move.fromX][y] == KonaneColor.empty {
+					if board[y][move.fromX] == KonaneColor.empty {
 						return false
 					}
 				}
@@ -121,11 +121,11 @@ class KonaneGameState {
 			while y != move.toY {
 
 				if (y - move.fromY) % 2 == 0 {
-					if board[move.fromX][y] != KonaneColor.empty {
+					if board[y][move.fromX] != KonaneColor.empty {
 						return false
 					}
 				} else {
-					if board[move.fromX][y] == KonaneColor.empty {
+					if board[y][move.fromX] == KonaneColor.empty {
 						return false
 					}
 				}
@@ -134,9 +134,9 @@ class KonaneGameState {
 			}
 		}
 
-		if board[move.fromX][move.fromY] == KonaneColor.black && getIsBlackTurn() {
+		if board[move.fromY][move.fromX] == KonaneColor.black && getIsBlackTurn() {
 			//true
-		} else if board[move.fromX][move.fromY] == KonaneColor.white && !getIsBlackTurn() {
+		} else if board[move.fromY][move.fromX] == KonaneColor.white && !getIsBlackTurn() {
 			//true
 		} else {
 			//move from square not yours
@@ -148,7 +148,7 @@ class KonaneGameState {
 	}
 
 	func isValid(blackRemove: (x: Int, y: Int)) -> Bool {
-		if board[blackRemove.x][blackRemove.y] != KonaneColor.black {
+		if board[blackRemove.y][blackRemove.x] != KonaneColor.black {
 			return false
 		}
 
@@ -180,11 +180,11 @@ class KonaneGameState {
 			return false
 		}
 
-		if board[whiteRemove.x][whiteRemove.y] != KonaneColor.white {
+		if board[whiteRemove.y][whiteRemove.x] != KonaneColor.white {
 			return false
 		}
 
-		if board[whiteRemove.x - 1][whiteRemove.y] == KonaneColor.empty || board[whiteRemove.x + 1][whiteRemove.y] == KonaneColor.empty || board[whiteRemove.x][whiteRemove.y - 1] == KonaneColor.empty || board[whiteRemove.x][whiteRemove.y + 1] == KonaneColor.empty {
+		if board[whiteRemove.y][whiteRemove.x - 1] == KonaneColor.empty || board[whiteRemove.y][whiteRemove.x + 1] == KonaneColor.empty || board[whiteRemove.y - 1][whiteRemove.x] == KonaneColor.empty || board[whiteRemove.y + 1][whiteRemove.x] == KonaneColor.empty {
 			return true
 		}
 
@@ -197,7 +197,7 @@ class KonaneGameState {
 			var y = move.fromX + 1
 			while y != move.toY {
 
-				board[move.fromX][y] = KonaneColor.empty
+				board[y][move.fromX] = KonaneColor.empty
 
 				y += 1
 			}
@@ -207,7 +207,7 @@ class KonaneGameState {
 			var y = move.fromX - 1
 			while y != move.toY {
 
-				board[move.fromX][y] = KonaneColor.empty
+				board[y][move.fromX] = KonaneColor.empty
 
 				y -= 1
 			}
@@ -217,7 +217,7 @@ class KonaneGameState {
 			var x = move.fromX + 1
 			while x != move.toX {
 
-				board[x][move.fromX] = KonaneColor.empty
+				board[move.fromY][x] = KonaneColor.empty
 
 				x += 1
 			}
@@ -227,7 +227,7 @@ class KonaneGameState {
 			var x = move.fromX - 1
 			while x != move.toX {
 
-				board[x][move.fromX] = KonaneColor.empty
+				board[move.fromY][x] = KonaneColor.empty
 
 				x -= 1
 			}
@@ -235,7 +235,7 @@ class KonaneGameState {
 	}
 
 	func perform(blackRemove: (x: Int, y: Int)) {
-		//remove
+		board[blackRemove.y]
 	}
 
 	func perform(whiteRemove: (x: Int, y: Int)) {
