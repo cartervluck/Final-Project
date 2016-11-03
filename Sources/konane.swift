@@ -24,7 +24,29 @@ class KonaneGame {
 		gameState.boardSetUp()
 
 		while true {
-			//Do the things
+			if gameState.getIsBlackTurn() {
+				print("Black's move.")
+			} else {
+				print("White's move.")
+			}
+
+			displayBoard()
+
+			print("Enter the X value of the piece you want to move:")
+
+			var fromX = Int(readLine()!)!
+
+			print("Enter the Y value of the piece you want to move:")
+
+			var fromY = Int(readLine()!)!
+
+			print("Enter the X value of the space you want to move to:")
+
+			var toX = Int(readLine()!)!
+
+			print("Enter the Y value of the space you want to move to:")
+
+			var toY = Int(readLine()!)!
 
 			if gameState.didBlackWin() {
 				return true
