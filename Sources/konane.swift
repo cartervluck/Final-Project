@@ -26,43 +26,59 @@ class KonaneGame {
 
 		displayBoard()
 
-		/* let firstRemove = blackInputSource.removeFirstPiece(gameState: gameState)
+		let firstRemove = blackInputSource.removeFirstPiece(gameState: gameState)
 
-		gameState.board[firstRemove.y][firstRemove.x]
+		gameState.board[firstRemove.y][firstRemove.x] = KonaneColor.empty
 
 		let secondRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
 
-		gameState.board[secondRemove.y][secondRemove.x] */
+		gameState.board[secondRemove.y][secondRemove.x] = KonaneColor.empty
 
 		while true {
-			if gameState.getIsBlackTurn() {
-				print("Black's move.")
-			} else {
-				print("White's move.")
-			}
 
-			displayBoard()
-
-			//check what type it is, ask for move
-
-			var move = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
+			print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
 			if gameState.getIsBlackTurn() {
-				move = blackInputSource.nextMove(gameState: gameState)
-			} else {
-				move = whiteInputSource.nextMove(gameState: gameState)
-			}
+					print("Black's move.")
+				} else {
+					print("White's move.")
+				}
 
-			if gameState.isValid(move: move) {
-				gameState.perform(move: move)
+				displayBoard()
+
+			var giveValidMove = false
+			while !giveValidMove {
+
+				//check what type it is, ask for move
+
+				var move = KonaneMove(fromX: 0, fromY: 0, toX: 0, toY: 0)
+
+				if gameState.getIsBlackTurn() {
+					move = blackInputSource.nextMove(gameState: gameState)
+				} else {
+					move = whiteInputSource.nextMove(gameState: gameState)
+				}
+				if gameState.isValid(move: move) {
+					gameState.perform(move: move)
+					giveValidMove = true
+				} else {
+					print("Invalid move. Try again.")
+				}
 			}
 
 			if gameState.didBlackWin() {
+				displayBoard()
 				return true
 			}
 
 			if gameState.didWhiteWin() {
+				displayBoard()
 				return false
+			}
+			if gameState.getIsBlackTurn() {
+				gameState.isBlackTurn = false
+			} else {
+				gameState.isBlackTurn = true
 			}
 		}
 	}

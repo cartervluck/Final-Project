@@ -10,18 +10,16 @@ class KonaneGameState {
 	func boardSetUp() {
 		for i in 0 ..< length {
 			for n in 0 ..< width {
-				if i + n % 2 == 0 {
+				if (i + n) % 2 == 0 {
 					board[i].append(KonaneColor.white)
-					print("W")
 				} else {
 					board[i].append(KonaneColor.black)
-					print("B")
 				}
 			}
 		}
 	}
 
-	private var isBlackTurn: Bool = true
+	var isBlackTurn: Bool = true
 
 	func getIsBlackTurn() -> Bool {
 		return isBlackTurn
@@ -33,36 +31,43 @@ class KonaneGameState {
 
 	func isValid(move: KonaneMove) -> Bool {
 		if move.toX < 0 {
+			print("X value too small")
 			return false
 		}
 
 		if move.toX > length - 1 {
+			print("X value too large")
 			return false
 		}
 
 		if move.toY < 0 {
+			print("Y value too small")
 			return false
 		}
 
 		if move.toY > width - 1 {
+			print("Y value too large")
 			return false
 		}
 
 		if board[move.toY][move.toX] != KonaneColor.empty {
 			//move to square not empty
+			print("Moved to an occupied square.")
 			return false
 		}
 
 		if move.fromX - move.toX != 0 && move.fromY - move.toY != 0 {
-			//move non-linear
+			print("move non-linear")
 			return false
 		}
 
-		if move.fromX - move.toX % 2 != 0 {
+		if (move.fromX - move.toX) % 2 != 0 {
+			print("Did not move an even # of squares on X.")
 			return false
 		}
 
-		if move.fromY - move.toY % 2 != 0 {
+		if (move.fromY - move.toY) % 2 != 0 {
+			print("Did not move an even # of squares on Y")
 			return false
 		}
 
@@ -73,10 +78,12 @@ class KonaneGameState {
 
 				if (x - move.fromX) % 2 == 0 {
 					if board[move.fromY][x] != KonaneColor.empty {
+						print("Hit something when testing to left")
 						return false
 					}
 				} else {
 					if board[move.fromY][x] == KonaneColor.empty {
+						print("tried to jump over an empty square")
 						return false
 					}
 				}
@@ -91,10 +98,12 @@ class KonaneGameState {
 
 				if (x - move.fromX) % 2 == 0 {
 					if board[move.fromY][x] != KonaneColor.empty {
+						print("Hit something when testing to right")
 						return false
 					}
 				} else {
 					if board[move.fromY][x] == KonaneColor.empty {
+						print("tried to jump over an empty square")
 						return false
 					}
 				}
@@ -104,15 +113,17 @@ class KonaneGameState {
 		}
 
 		if move.fromY - move.toY > 0 {
-			var y = move.fromX - 1
+			var y = move.fromY - 1
 			while y != move.toY {
 
 				if (y - move.fromY) % 2 == 0 {
 					if board[y][move.fromX] != KonaneColor.empty {
+						print("Hit something when testing up")
 						return false
 					}
 				} else {
 					if board[y][move.fromX] == KonaneColor.empty {
+						print("tried to jump over an empty square")
 						return false
 					}
 				}
@@ -122,15 +133,17 @@ class KonaneGameState {
 		}
 
 		if move.fromY - move.toY < 0 {
-			var y = move.fromX + 1
+			var y = move.fromY + 1
 			while y != move.toY {
 
 				if (y - move.fromY) % 2 == 0 {
 					if board[y][move.fromX] != KonaneColor.empty {
+						print("Hit something when testing down")
 						return false
 					}
 				} else {
 					if board[y][move.fromX] == KonaneColor.empty {
+						print("tried to jump over an empty square")
 						return false
 					}
 				}
@@ -144,7 +157,7 @@ class KonaneGameState {
 		} else if board[move.fromY][move.fromX] == KonaneColor.white && !getIsBlackTurn() {
 			//true
 		} else {
-			//move from square not yours
+			print("move from square not yours")
 			return false
 		}
 
@@ -199,23 +212,35 @@ class KonaneGameState {
 	func perform(move: KonaneMove) {
 
 		if move.fromY - move.toY < 0 {
-			var y = move.fromX + 1
+			var y = move.fromY + 1
 			while y != move.toY {
 
 				board[y][move.fromX] = KonaneColor.empty
 
 				y += 1
 			}
+			if getIsBlackTurn() {
+				board[move.toY][move.toX] = KonaneColor.black
+			} else {
+				board[move.toY][move.toX] = KonaneColor.white
+			}
+			board[move.fromY][move.fromX] = KonaneColor.empty
 		}
 
 		if move.fromY - move.toY > 0 {
-			var y = move.fromX - 1
+			var y = move.fromY - 1
 			while y != move.toY {
 
 				board[y][move.fromX] = KonaneColor.empty
 
 				y -= 1
 			}
+			if getIsBlackTurn() {
+				board[move.toY][move.toX] = KonaneColor.black
+			} else {
+				board[move.toY][move.toX] = KonaneColor.white
+			}
+			board[move.fromY][move.fromX] = KonaneColor.empty
 		}
 
 		if move.fromX - move.toX < 0 {
@@ -226,6 +251,12 @@ class KonaneGameState {
 
 				x += 1
 			}
+			if getIsBlackTurn() {
+				board[move.toY][move.toX] = KonaneColor.black
+			} else {
+				board[move.toY][move.toX] = KonaneColor.white
+			}
+			board[move.fromY][move.fromX] = KonaneColor.empty
 		}
 
 		if move.fromX - move.toX > 0 {
@@ -236,6 +267,12 @@ class KonaneGameState {
 
 				x -= 1
 			}
+			if getIsBlackTurn() {
+				board[move.toY][move.toX] = KonaneColor.black
+			} else {
+				board[move.toY][move.toX] = KonaneColor.white
+			}
+			board[move.fromY][move.fromX] = KonaneColor.empty
 		}
 	}
 
@@ -249,11 +286,11 @@ class KonaneGameState {
 
 	func didBlackWin() -> Bool {
 		//check if black won
-		return true
+		return false
 	}
 
 	func didWhiteWin() -> Bool {
 		//check if black won
-		return true
+		return false
 	}
 }
