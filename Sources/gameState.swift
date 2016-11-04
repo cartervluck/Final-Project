@@ -170,11 +170,16 @@ class KonaneGameState {
 			return false
 		}
 
-		if blackRemove.x != blackRemove.y {
-			return false
-		}
-
-		if blackRemove.x != 0 || blackRemove.x != (length/2) - 1 || blackRemove.x != (length/2) || blackRemove.x != length {
+		if blackRemove.x == 0 && blackRemove.y == length - 1 {
+			//true
+		} else if blackRemove.x == (width / 2) - 1 && blackRemove.y == length / 2 {
+			//true
+		} else if blackRemove.x == (width / 2) && blackRemove.y == (length / 2) - 1 {
+			//true
+		} else if blackRemove.x == width - 1 && blackRemove.y == 0 {
+			//true
+		} else {
+			print("Not (0,15), (7,8), (8, 7), or (15, 0). \(blackRemove.x), \(blackRemove.y)")
 			return false
 		}
 
@@ -202,8 +207,28 @@ class KonaneGameState {
 			return false
 		}
 
-		if board[whiteRemove.y][whiteRemove.x - 1] == KonaneColor.empty || board[whiteRemove.y][whiteRemove.x + 1] == KonaneColor.empty || board[whiteRemove.y - 1][whiteRemove.x] == KonaneColor.empty || board[whiteRemove.y + 1][whiteRemove.x] == KonaneColor.empty {
-			return true
+		if whiteRemove.x > 0 {
+			if board[whiteRemove.y][whiteRemove.x - 1] == KonaneColor.empty {
+				return true
+			}
+		}
+
+		if whiteRemove.x < width - 1 {
+			if board[whiteRemove.y][whiteRemove.x + 1] == KonaneColor.empty {
+				return true
+			}
+		}
+
+		if whiteRemove.y > 0 {
+			if board[whiteRemove.y - 1][whiteRemove.x] == KonaneColor.empty {
+				return true
+			}
+		}
+
+		if whiteRemove.y < length - 1 {
+			if board[whiteRemove.y + 1][whiteRemove.x] == KonaneColor.empty {
+				return true
+			}
 		}
 
 		return false
@@ -285,7 +310,14 @@ class KonaneGameState {
 	}
 
 	func didBlackWin() -> Bool {
-		//check if black won
+		for i in board {
+			for n in i {
+				//Iterated thru all pieces
+				if n == KonaneColor.black {
+					//Iterates thru all black pieces
+				}
+			}
+		}
 		return false
 	}
 

@@ -26,13 +26,29 @@ class KonaneGame {
 
 		displayBoard()
 
-		let firstRemove = blackInputSource.removeFirstPiece(gameState: gameState)
+		var validRemove = false
 
-		gameState.board[firstRemove.y][firstRemove.x] = KonaneColor.empty
+		while !validRemove {
+			print("Black removes first piece.")
+			let firstRemove = blackInputSource.removeFirstPiece(gameState: gameState)
+			if gameState.isValid(blackRemove: firstRemove) {
+				validRemove = true
+				gameState.board[firstRemove.y][firstRemove.x] = KonaneColor.empty
+			}
+		}
 
-		let secondRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
+		displayBoard()
 
-		gameState.board[secondRemove.y][secondRemove.x] = KonaneColor.empty
+		validRemove = false
+		while !validRemove {
+			print("White removes second piece.")
+			let secondRemove = whiteInputSource.removeSecondPiece(gameState: gameState)
+
+			if gameState.isValid(whiteRemove: secondRemove) {
+				validRemove = true
+				gameState.board[secondRemove.y][secondRemove.x] = KonaneColor.empty
+			}
+		}
 
 		while true {
 
@@ -86,6 +102,12 @@ class KonaneGame {
 	private func displayBoard() {
 		var compStr = ""
 		for i in 0 ..< gameState.length {
+			compStr += String(gameState.length - i - 1)
+			if gameState.length - i < 11 {
+				compStr += "  "
+			} else {
+				compStr += " "
+			}
 			for n in 0 ..< gameState.width {
 				if gameState.board[i][n] == KonaneColor.black {
 					compStr += "[X] "
@@ -96,6 +118,15 @@ class KonaneGame {
 				}
 			}
 			compStr += "\n"
+		}
+		compStr += "    "
+		for j in 0 ..< gameState.width {
+			compStr += String(j)
+			if j < 10 {
+				compStr += "   "
+			} else {
+				compStr += "  "
+			}
 		}
 		print(compStr)
 	}

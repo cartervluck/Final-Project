@@ -19,15 +19,19 @@ class KonaneMoveInputSource {
 
 class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 	override func removeFirstPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		print("X:")
 		let x = Int(readLine()!)!
-		let y = Int(readLine()!)!
+		print("Y:")
+		let y = gameState.length - Int(readLine()!)! - 1
 
 		return (x, y)
 	}
 
 	override func removeSecondPiece(gameState: KonaneGameState) -> (x: Int, y: Int) {
+		print("X:")
 		let x = Int(readLine()!)!
-		let y = Int(readLine()!)!
+		print("Y:")
+		let y = gameState.length - Int(readLine()!)! - 1
 
 		return (x, y)
 	}
@@ -36,11 +40,11 @@ class KonaneMoveInputSourceHuman: KonaneMoveInputSource {
 		print("Input the X of the piece you want to move.")
 		let fromX = Int(readLine()!)!
 		print("Input the Y of the piece you want to move.")
-		let fromY = Int(readLine()!)!
+		let fromY = gameState.length - Int(readLine()!)! - 1
 		print("Input the X of the space you want to move to.")
 		let toX = Int(readLine()!)!
 		print("Input the Y of the space you want to move to.")
-		let toY = Int(readLine()!)!
+		let toY = gameState.length - Int(readLine()!)! - 1
 
 		return KonaneMove(fromX: fromX, fromY: fromY, toX: toX, toY: toY)
 	}
