@@ -310,10 +310,10 @@ class KonaneGameState {
 	}
 
 	func didWhiteWin() -> Bool {
-		for i in board {
-			for n in i {
+		for i in 0 ..< board.count {
+			for n in 0 ..< board[i].count {
 				//Iterated thru all pieces
-				if n == KonaneColor.black {
+				if board[i][n] == KonaneColor.black {
 					//Iterates thru all black pieces
 					if board[i + 1][n] == KonaneColor.white {
 						if board[i+2][n] == KonaneColor.empty {
@@ -346,10 +346,10 @@ class KonaneGameState {
 
 	func didBlackWin() -> Bool {
 		//check if black won
-		for i in board {
-			for n in i {
+		for i in 0 ..< board.count {
+			for n in 0 ..< board[i].count {
 				//Iterated thru all pieces
-				if n == KonaneColor.white {
+				if board[i][n] == KonaneColor.white {
 					//Iterates thru all black pieces
 					if board[i + 1][n] == KonaneColor.black {
 						if board[i+2][n] == KonaneColor.empty {
