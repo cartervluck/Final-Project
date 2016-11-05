@@ -75,7 +75,6 @@ class KonaneGameState {
 		if move.fromX - move.toX > 0 {
 			var x = move.fromX - 1
 			while x != move.toX {
-
 				if (x - move.fromX) % 2 == 0 {
 					if board[move.fromY][x] != KonaneColor.empty {
 						print("Hit something when testing to left")
@@ -83,7 +82,7 @@ class KonaneGameState {
 					}
 				} else {
 					if board[move.fromY][x] == KonaneColor.empty {
-						print("tried to jump over an empty square")
+						print("tried to jump over an empty square when x is \(x)")
 						return false
 					}
 				}
@@ -235,7 +234,10 @@ class KonaneGameState {
 	}
 
 	func perform(move: KonaneMove) {
-
+		print("FromY: \(move.fromY)")
+		print("ToY: \(move.toY)")
+		print("FromX: \(move.fromX)")
+		print("ToX: \(move.toX)")
 		if move.fromY - move.toY < 0 {
 			var y = move.fromY + 1
 			while y != move.toY {
@@ -315,27 +317,36 @@ class KonaneGameState {
 				//Iterated thru all pieces
 				if board[i][n] == KonaneColor.black {
 					//Iterates thru all black pieces
-					if board[i + 1][n] == KonaneColor.white {
-						if board[i+2][n] == KonaneColor.empty {
-							return false
+
+					if i < length - 2 {
+						if board[i + 1][n] == KonaneColor.white {
+							if board[i+2][n] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i - 1][n] == KonaneColor.white {
-						if board[i - 2][n] == KonaneColor.empty {
-							return false
+					if i > 1 {
+						if board[i - 1][n] == KonaneColor.white {
+							if board[i - 2][n] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i][n + 1] == KonaneColor.white {
-						if board[i][n + 1] == KonaneColor.empty {
-							return false
+					if n < width - 2 {
+						if board[i][n + 1] == KonaneColor.white {
+							if board[i][n + 1] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i][n - 1] == KonaneColor.white {
-						if board[i][n - 1] == KonaneColor.empty {
-							return false
+					if n > 1 {
+						if board[i][n - 1] == KonaneColor.white {
+							if board[i][n - 1] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 				}
@@ -350,28 +361,36 @@ class KonaneGameState {
 			for n in 0 ..< board[i].count {
 				//Iterated thru all pieces
 				if board[i][n] == KonaneColor.white {
-					//Iterates thru all black pieces
-					if board[i + 1][n] == KonaneColor.black {
-						if board[i+2][n] == KonaneColor.empty {
-							return false
+					//Iterates thru all white pieces
+					if i < length - 2 {
+						if board[i + 1][n] == KonaneColor.black {
+							if board[i+2][n] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i - 1][n] == KonaneColor.black {
-						if board[i - 2][n] == KonaneColor.empty {
-							return false
+					if i > 1 {
+						if board[i - 1][n] == KonaneColor.black {
+							if board[i - 2][n] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i][n + 1] == KonaneColor.black {
-						if board[i][n + 1] == KonaneColor.empty {
-							return false
+					if n < width - 2 {
+						if board[i][n + 1] == KonaneColor.black {
+							if board[i][n + 1] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 
-					if board[i][n - 1] == KonaneColor.black {
-						if board[i][n - 1] == KonaneColor.empty {
-							return false
+					if n > 1 {
+						if board[i][n - 1] == KonaneColor.black {
+							if board[i][n - 1] == KonaneColor.empty {
+								return false
+							}
 						}
 					}
 				}

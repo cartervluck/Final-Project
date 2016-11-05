@@ -76,6 +76,7 @@ class KonaneGame {
 				}
 				if gameState.isValid(move: move) {
 					gameState.perform(move: move)
+					print("Performed.")
 					giveValidMove = true
 				} else {
 					print("Invalid move. Try again.")
