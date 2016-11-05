@@ -309,20 +309,74 @@ class KonaneGameState {
 		board[whiteRemove.y][whiteRemove.x] = KonaneColor.empty
 	}
 
-	func didBlackWin() -> Bool {
+	func didWhiteWin() -> Bool {
 		for i in board {
 			for n in i {
 				//Iterated thru all pieces
 				if n == KonaneColor.black {
 					//Iterates thru all black pieces
+					if board[i + 1][n] == KonaneColor.white {
+						if board[i+2][n] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i - 1][n] == KonaneColor.white {
+						if board[i - 2][n] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i][n + 1] == KonaneColor.white {
+						if board[i][n + 1] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i][n - 1] == KonaneColor.white {
+						if board[i][n - 1] == KonaneColor.empty {
+							return false
+						}
+					}
 				}
 			}
 		}
-		return false
+		return true
 	}
 
-	func didWhiteWin() -> Bool {
+	func didBlackWin() -> Bool {
 		//check if black won
+		for i in board {
+			for n in i {
+				//Iterated thru all pieces
+				if n == KonaneColor.white {
+					//Iterates thru all black pieces
+					if board[i + 1][n] == KonaneColor.black {
+						if board[i+2][n] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i - 1][n] == KonaneColor.black {
+						if board[i - 2][n] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i][n + 1] == KonaneColor.black {
+						if board[i][n + 1] == KonaneColor.empty {
+							return false
+						}
+					}
+
+					if board[i][n - 1] == KonaneColor.black {
+						if board[i][n - 1] == KonaneColor.empty {
+							return false
+						}
+					}
+				}
+			}
+		}
 		return false
 	}
 }
